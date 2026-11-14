@@ -1,0 +1,25 @@
+name: Java CI with Ant / JUnit
+
+on:
+  push:
+    branches: [ "main", "portfolio-project" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+
+    - name: Run JUnit Tests
+      run: |
+        javac -cp "lib/*:src:test" test/ChessBoardTest.java
+        java -cp "lib/*:src:test" org.junit.runner.JUnitCore ChessBoardTest
